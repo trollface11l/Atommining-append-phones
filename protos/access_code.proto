@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+
+// service_types:
+// Одноклассники: OKru
+// Вконтакте: VKcom
+
+// Получение кода по номеру
+message AccessCodeRequest {
+  int64 phone_number = 1;
+  string service_type = 2; // VKcom, OKru...
+}
+
+message AccessCodeResponse {
+  string access_code = 1;
+}
+
+// Занести в базу, что номер зарегистрирован на какой-либо сервис
+message PhoneRegisteredRequest {
+  int64 phone_number = 2;
+  string service_type = 3; // VKcom, OKru...
+}
+
+message PhoneRegisteredResponse {
+  bool db_changed = 1;
+}
+
+// Добавить номер в базу
+message AppendPhoneNumberRequest {
+  int64 phone_number = 1;
+}
+
+message AppendPhoneNumberResponse {
+  bool appended = 1;
+}
+
+// Получить номер свободный номер телефона для выбранного сервиса
+message GetPhoneNumberRequest {
+  string service_type = 2;
+}
+
+message GetPhoneNumberResponse {
+  int64 phone_number = 1;
+}
+
+service AccessCodeService {
+  rpc AccessCode (AccessCodeRequest) returns (AccessCodeResponse){
+
+  };
+  rpc PhoneRegistered (PhoneRegisteredRequest) returns (PhoneRegisteredResponse){
+
+  };
+  rpc AppendPhoneNumber (AppendPhoneNumberRequest) returns (AppendPhoneNumberResponse){
+
+  };
+  rpc GetPhoneNumber (GetPhoneNumberRequest) returns (GetPhoneNumberResponse){
+
+  };
+}
+
+
+
+
+
+
